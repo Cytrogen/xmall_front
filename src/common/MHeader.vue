@@ -127,7 +127,14 @@
         <div class="nav-sub">
           <div class="nav-sub-bg"></div>
           <div class="nav-sub-wrapper">
-            <div class="w"></div>
+            <div class="w">
+              <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item :to="{path: '/'}">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{path: '/goods'}">全部</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{path: '/goods?cid=1184'}">活动列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{path: '/thanks'}">捐赠名单</el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
           </div>
         </div>
       </slot>
@@ -243,7 +250,6 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  // position: relative;
   h1 {
     height: 100%;
     display: flex;
@@ -262,6 +268,9 @@ header {
     justify-content: center;
     align-items: center;
     margin-right: 22px;
+    .el-input {
+      margin-right: 10px;
+    }
     .el-autocomplete{
       width: 305px;
     }
@@ -279,9 +288,6 @@ header {
       // width: 5vw;
       margin-left: -10px;
     }
-    // a:nth-child(3){
-    //   width: 5vw;
-    // }
   }
   .nav-aside {
     position: relative;
