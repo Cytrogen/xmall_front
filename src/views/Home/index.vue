@@ -1,10 +1,17 @@
 <script>
+import MShelf from '@/components/Shelf.vue';
+import MallGoods from '@/components/MallGoods.vue';
+
 export default {
   data() {
     return {
       banner: [],
       homeList: []
     }
+  },
+  components: {
+    MallGoods,
+    MShelf
   },
   async created() {
     try {
@@ -25,8 +32,9 @@ export default {
 
 <template>
   <div class="home">
+    <!-- 轮播图 -->
     <div class="banner">
-      <el-carousel indicator-position="outside">
+      <el-carousel indicator-position="outside" height="480px">
         <el-carousel-item v-for="item in banner" :key="item.id">
           <img v-if="item.picUrl" class="img1" :src="item.picUrl" alt="" />
           <img v-if="item.picUrl2" class="img2 a" :src="item.picUrl2" alt="" />
@@ -34,21 +42,38 @@ export default {
         </el-carousel-item>
       </el-carousel>
     </div>
+    <!-- 活动板块 -->
     <div v-for="item in homeList" :key="item.id">
       <div class="activity-panel" v-if="item.type === 1">
         <el-row>
           <el-col class="content" :span="8" v-for="o in item.panelContents" :key="o">
             <el-card :body-style="{padding: '0px'}">
               <img :src="o.picUrl" class="i" />
-              <a href="#" class="cover-link"> </a>
+              <a href="#" class="cover-link" />
             </el-card>
           </el-col>
         </el-row>
       </div>
-      <section class="w mt30 clearfix"></section>
-      <section class="w mt30 clearfix"></section>
+      <!-- 热门商品 -->
+      <section class="w mt30 clearfix" v-if="item.type===2">
+        <m-shelf :title="item.name">
+          <div slot="content" class="hot">
+            <mall-goods v-for="(o, i) in item.panelContents" :key="i" :goods="o" />
+          </div>
+        </m-shelf>
+      </section>
+      <!-- 官方精选 -->
+      <section class="w mt30 clearfix" v-if="item.type===3">
+        <m-shelf :title="item.name">
+          <div slot="content" class="floors">
+            <div class="imgbanner" v-for="(o, j) in item.panelContents" :key="j" v-if="o.type === 2 || o.type === 3">
+              <img :src="o.picUrl" alt="" />
+            </div>
+            <mall-goods :goods="o" v-for="(o, i) in item.panelContents" :key="i" v-if="o.type === 0" />
+          </div>
+        </m-shelf>
+      </section>
     </div>
-
   </div>
 </template>
 
@@ -357,5 +382,4 @@ ul.box {
     height: 100%;
   }
 }
-
 </style>
