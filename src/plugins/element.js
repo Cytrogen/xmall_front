@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Button, Input, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Row, Col, Card } from 'element-ui';
+import { Button, Input, Breadcrumb, BreadcrumbItem, Carousel, CarouselItem, Row, Col, Card, Pagination } from 'element-ui';
 
 Vue.use(Button);
 Vue.use(Input);
@@ -10,3 +10,4 @@ Vue.use(CarouselItem);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Card);
+Vue.use(Pagination);
