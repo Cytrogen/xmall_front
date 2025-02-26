@@ -89,8 +89,11 @@ export default {
       }
     },
     async getAllGoods() {
+      const url = this.$route.query.cid ?
+          `/api/goods/allGoods?page=${this.currentPage}&size=${this.pageSize}&sort=${this.sort}&priceGt=${this.min}&priceLte=${this.max}&cid=${this.$route.query.cid}` :
+          `/api/goods/allGoods?page=${this.currentPage}&size=${this.pageSize}&sort=${this.sort}&priceGt=${this.min}&priceLte=${this.max}`;
       try {
-        const res = await this.$http.get(`/api/goods/allGoods?page=${this.currentPage}&size=${this.pageSize}&sort=${this.sort}&priceGt=${this.min}&priceLte=${this.max}`);
+        const res = await this.$http.get(url);
         this.allGoods = res.data.data;
         this.total = res.data.total;
       } catch (error) {
@@ -103,6 +106,9 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页：${val}`);
     }
+  },
+  watch: {
+    $route: "getAllGoods"
   }
 };
 </script>
